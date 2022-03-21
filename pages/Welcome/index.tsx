@@ -1,6 +1,6 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import Button from '../../components/PublicComponents/Button';
+import React from "react";
+import { useRouter } from "next/router";
+import Button from "../../components/PublicComponents/Button";
 const WolCome: React.FC = () => {
   const history = useRouter();
   return (
@@ -8,9 +8,8 @@ const WolCome: React.FC = () => {
       <div className="menu_model">
         <Button
           data-cy="to_Algorithm"
-          type="submit"
           onClick={() => {
-            console.log(history.push('/Algorithm'));
+            console.log(history.push("/Algorithm"));
           }}
         >
           to Algorithm
@@ -18,7 +17,7 @@ const WolCome: React.FC = () => {
         <Button
           data-cy="to_Daily"
           onClick={() => {
-            console.log(history.push('/Daily'));
+            console.log(history.push("/Daily"));
           }}
         >
           to Daily
@@ -26,7 +25,7 @@ const WolCome: React.FC = () => {
         <Button
           data-cy="to_Daily"
           onClick={() => {
-            console.log(history.push('/Demo'));
+            console.log(history.push("/Demo"));
           }}
         >
           to Demo
@@ -34,7 +33,7 @@ const WolCome: React.FC = () => {
         <Button
           data-cy="to_Daily"
           onClick={() => {
-            console.log(history.push('/ThreeD'));
+            console.log(history.push("/ThreeD"));
           }}
         >
           to ThreeD Demo

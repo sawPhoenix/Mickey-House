@@ -13,7 +13,7 @@ const Layout: React.FC = (props) => {
       <main className="main">{props.children}</main>
       <div className="changebg_btn">
         <Button
-          btnType="neon"
+          btnType="primary"
           onClick={() => setBackground(background === 31 ? 1 : background + 1)}
         >
           切换背景
