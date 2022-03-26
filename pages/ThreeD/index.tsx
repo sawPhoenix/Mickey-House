@@ -1,8 +1,8 @@
-import { useRef } from 'react';
-import { Canvas, useFrame, MeshProps } from '@react-three/fiber';
+import { useRef } from "react";
+import { Canvas, useFrame, MeshProps } from "@react-three/fiber";
 const Box = () => {
   const ref = useRef<MeshProps>({});
-  useFrame(state => {
+  useFrame((state) => {
     ref.current.rotation.x += 0.01;
     ref.current.rotation.y += 0.01;
   });
@@ -14,11 +14,11 @@ const Box = () => {
     </mesh>
   );
 };
-export default function () {
+export default function ThreeD() {
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <Canvas
-        style={{ width: '100%', height: '100%', background: 'black' }}
+        style={{ width: "100%", height: "100%", background: "black" }}
         camera={{ position: [3, 3, 3] }}
       >
         {/* <Box /> */}

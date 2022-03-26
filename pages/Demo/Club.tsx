@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { useMount } from "ahooks";
 
 type CanvasProps = CanvasRenderingContext2D | null;
@@ -13,7 +13,7 @@ interface Branch {
   length: number;
   theta: number;
 }
-export default function canvasDemo() {
+const CanvasDemo: React.FC = () => {
   const el = useRef<HTMLCanvasElement>(null);
   const ctx = () => el.current?.getContext("2d");
 
@@ -97,4 +97,5 @@ export default function canvasDemo() {
       <canvas ref={el} width={WIDTH} height={HEIGHT}></canvas>
     </div>
   );
-}
+};
+export default CanvasDemo;

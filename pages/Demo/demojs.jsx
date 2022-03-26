@@ -1,6 +1,6 @@
 import { myReduce, deepClone } from './DemoMethods';
 
-export default function () {
+export default function Demo() {
   let arr = [1, 2, 3, 4, 5];
   let deepTest = {
     name: '1',

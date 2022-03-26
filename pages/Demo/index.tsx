@@ -2,7 +2,7 @@ import Demojs from "./demojs";
 import ClubCanvas from "./Club";
 import { useBoolean } from "ahooks";
 import Button from "components/PublicComponents/Button";
-export default function () {
+export default function Demo() {
   const [
     visibleClub,
     { setTrue: setVisibleClubTrue, setFalse: setVisibleClubFalse },
