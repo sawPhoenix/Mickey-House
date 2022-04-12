@@ -1,12 +1,7 @@
-import Demojs from "./demojs";
-import ClubCanvas from "./Club";
-import { useBoolean } from "ahooks";
+import { useRouter } from "next/router";
 import Button from "components/PublicComponents/Button";
 export default function Demo() {
-  const [
-    visibleClub,
-    { setTrue: setVisibleClubTrue, setFalse: setVisibleClubFalse },
-  ] = useBoolean();
+  const history = useRouter();
   return (
     <div
       style={{
@@ -20,25 +15,24 @@ export default function Demo() {
           margin: 20,
         }}
       >
-        <Button btnType="primary" onClick={setVisibleClubTrue}>
+        <Button
+          btnType="primary"
+          onClick={() => history.push("/Demo/Demos/ButtonType")}
+        >
+          Button Type
+        </Button>
+        <Button
+          btnType="primary"
+          onClick={() => history.push("/Demo/Demos/LazyMan")}
+        >
           梅花效果
         </Button>
-        <Button btnType="danger" onClick={setVisibleClubFalse}>
-          RESET
+        <Button
+          btnType="primary"
+          onClick={() => history.push("/Demo/Demos/MineSweeper")}
+        >
+          扫雷
         </Button>
-      </div>
-      {/* <Demojs /> */}
-
-      <div
-        style={{
-          background: "#222",
-          opacity: "0.5",
-          height: 600,
-          width: 800,
-          margin: "auto",
-        }}
-      >
-        {visibleClub && <ClubCanvas />}
       </div>
     </div>
   );

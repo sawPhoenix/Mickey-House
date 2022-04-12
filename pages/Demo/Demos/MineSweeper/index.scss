@@ -1,0 +1,60 @@
+
+.mine-rows {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MineBlock-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px rgba($color: $gray-400, $alpha:0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1px;
+}
+.MineBlock-btn:hover {
+    background: rgba($color: $gray-400, $alpha: 0.1);
+}
+.mine-normal {
+    background: $gray-500;
+}
+
+.mine-normal:hover {
+    background: rgba($color:  $gray-500, $alpha: 0.1);
+}
+.mine-flag {
+
+}
+.mine-one {
+    color: $blue;
+}
+.mine-two {
+    color: $green;
+}
+.mine-three {
+    color: $yellow;
+}
+.mine-four {
+    color: $orange;
+}
+.mine-five {
+    color: $purple;
+}
+.mine-six {
+    color: $pink;
+}
+.mine-seven {
+    color: $red;
+}
+.mine-eight {
+    color: $black;
+}
+.mine-revealed {
+    color: $gray-600;
+}
+.mine-self { 
+    background-color: rgba($color: $red, $alpha: 0.5);
+}

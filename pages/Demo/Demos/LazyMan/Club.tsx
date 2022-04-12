@@ -1,13 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useMount } from "ahooks";
-
-type CanvasProps = CanvasRenderingContext2D | null;
+import { WIDTH, HEIGHT } from "./index";
 interface Point {
   x: number;
   y: number;
 }
-const WIDTH = 600;
-const HEIGHT = 600;
 interface Branch {
   start: Point;
   length: number;
