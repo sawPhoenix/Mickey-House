@@ -47,18 +47,23 @@ const difficulty = {
 };
 export default function MineSweeper() {
   const [size, setSize] = useSetState<BoardOptions>(difficulty.easy);
-  const state = useRef<GameState>();
+  const [state, setState] = useSetState<GameState>({
+    board: [[]],
+    mineGenerated: false,
+    status: "play",
+    startMS: 0,
+    endMS: 0,
+  });
 
   const isOver = useRef(false);
 
   const reset = (s?: BoardOptions) => {
-    setSize(s || size);
-
-    state.current = {
+    s && setSize(s);
+    setState({
       startMS: +Date.now(),
-      board: Array.from({ length: s?.height || size.height }, (_, y) =>
+      board: Array.from({ length: size.height }, (_, y) =>
         Array.from(
-          { length: s?.width || size.width },
+          { length: size.width },
           (_, x): BlockState => ({
             x,
             y,
@@ -69,7 +74,7 @@ export default function MineSweeper() {
       ),
       mineGenerated: false,
       status: "play",
-    };
+    });
     isOver.current = false;
   };
 
@@ -85,7 +90,7 @@ export default function MineSweeper() {
     const placeRandom = () => {
       const x = randomInt(0, size.width - 1);
       const y = randomInt(0, size.height - 1);
-      // console.log(nowstate, x, y);
+      console.log(nowstate, x, y);
 
       const block = nowstate[y][x];
       if (
@@ -106,7 +111,8 @@ export default function MineSweeper() {
   }
 
   function updateNumbers() {
-    state.current?.board.forEach((row) => {
+    let newboard = state.board;
+    newboard.forEach((row) => {
       row.forEach((block) => {
         if (block.mine) return;
         getSiblings(block).forEach((b) => {
@@ -114,11 +120,14 @@ export default function MineSweeper() {
         });
       });
     });
+    setState({
+      board: newboard,
+    });
   }
   function checkGameState() {
-    if (!state.current?.mineGenerated) return;
+    if (!state.mineGenerated) return;
 
-    const blocks = state.current.board!.flat();
+    const blocks = state.board!.flat();
 
     if (
       blocks.every((block) => block.revealed || block.flagged || block.mine)
@@ -138,7 +147,7 @@ export default function MineSweeper() {
         if (x2 < 0 || x2 >= size.width || y2 < 0 || y2 >= size.height)
           return undefined;
 
-        return state.current?.board![y2][x2];
+        return state.board![y2][x2];
       })
       .filter(Boolean) as unknown as BlockState[];
   }
@@ -147,13 +156,13 @@ export default function MineSweeper() {
   }, []);
   // console.log(play);
   function showAllMines() {
-    state.current?.board.flat().forEach((i) => {
+    state.board.flat().forEach((i) => {
       if (i.mine) i.revealed = true;
     });
   }
   function onGameOver(status: GameStatus) {
-    state.current!.status = status;
-    state.current!.endMS = +Date.now();
+    state.status = status;
+    state.endMS = +Date.now();
     if (status === "lost") {
       showAllMines();
       setTimeout(() => {
@@ -163,11 +172,11 @@ export default function MineSweeper() {
   }
 
   function onBlockClick(block: BlockState) {
-    if (state.current?.status !== "play" || block.flagged) return;
+    if (state.status !== "play" || block.flagged) return;
 
-    if (!state.current?.mineGenerated) {
-      generateMines(state.current?.board, block);
-      state.current!.mineGenerated = true;
+    if (!state.mineGenerated) {
+      generateMines(state.board, block);
+      state.mineGenerated = true;
     }
     block.revealed = true;
     if (block.mine) {
@@ -177,7 +186,7 @@ export default function MineSweeper() {
   }
 
   function autoExpand(block: BlockState) {
-    if (state.current?.status !== "play" || block.flagged) return;
+    if (state.status !== "play" || block.flagged) return;
 
     const siblings = getSiblings(block);
     const flags = siblings.reduce((a, b) => a + (b.flagged ? 1 : 0), 0);
@@ -203,13 +212,14 @@ export default function MineSweeper() {
     }
   }
   function onRightClick(block: BlockState) {
-    if (state.current?.status !== "play") {
+    if (state.status !== "play") {
       return;
     }
     if (!block.revealed) {
       block.flagged = !block.flagged;
     }
-    console.log(state.current.board[block.y][block.x]);
+
+    setState({ board: onSetStateHandle(block) });
   }
   function expendZero(block: BlockState) {
     if (block.adjacentMines) return;
@@ -220,8 +230,11 @@ export default function MineSweeper() {
       }
     });
   }
-  console.log(state);
-
+  function onSetStateHandle(block: BlockState) {
+    let board = state.board;
+    board[block.y][block.x] = block;
+    return board;
+  }
   return (
     <div
       style={{
@@ -251,12 +264,12 @@ export default function MineSweeper() {
       <div
         style={{
           background: "#222",
-          opacity: "0.5",
+          margin: "auto",
         }}
       >
-        {state.current?.board.map((row, y) => (
+        {state.board?.map((row, y) => (
           <div key={y} className="mine-rows">
-            {/* {console.log(row)} */}
+            {console.log(row)}
             {row.map((block, x) => (
               <MineBlock
                 key={x}
@@ -264,7 +277,6 @@ export default function MineSweeper() {
                 onClick={() => onBlockClick(block)}
                 onDoubleClick={() => autoExpand(block)}
                 onContextMenu={(e) => {
-                  e.defaultPrevented = false;
                   e.preventDefault();
                   onRightClick(block);
                 }}

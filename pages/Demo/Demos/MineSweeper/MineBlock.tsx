@@ -3,7 +3,7 @@ import boom from "assets/boom.svg";
 import flag from "assets/flag.svg";
 import classNames from "classnames";
 import React from "react";
-
+import Image from "next/image";
 interface MineBlockProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   block: BlockState;
 }
@@ -34,10 +34,10 @@ const MineBlock: React.ForwardRefRenderFunction<
   React.useImperativeHandle(ref, () => ({}));
   const BlockRender = () => {
     if (block.flagged) {
-      return <img className="mine-flag" src={flag} />;
+      return <Image className="mine-flag" src={flag} />;
     } else if (block.revealed) {
       if (block.mine) {
-        return <img className="mine-boom" src={boom} />;
+        return <Image className="mine-boom" src={boom} />;
       } else {
         <div>{block.adjacentMines}</div>;
       }
