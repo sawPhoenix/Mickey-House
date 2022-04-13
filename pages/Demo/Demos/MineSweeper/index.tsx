@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useBoolean, useSetState } from "ahooks";
 import Button from "components/PublicComponents/Button";
-import MineSweeping from "./MineSweeping";
 import MineBlock from "./MineBlock";
 import type { BlockState } from "./type";
+import { log } from "console";
+import moment from "moment";
 const directions = [
   [1, 1],
   [1, 0],
@@ -19,8 +20,8 @@ interface GameState {
   board: BlockState[][];
   mineGenerated: boolean;
   status: GameStatus;
-  startMS?: number;
-  endMS?: number;
+  startMS: number;
+  endMS: number;
 }
 
 interface BoardOptions {
@@ -45,6 +46,7 @@ const difficulty = {
     mines: 99,
   },
 };
+const now = Date.now();
 export default function MineSweeper() {
   const [size, setSize] = useSetState<BoardOptions>(difficulty.easy);
   const [state, setState] = useSetState<GameState>({
@@ -55,23 +57,31 @@ export default function MineSweeper() {
     endMS: 0,
   });
 
+  const timerMS = useRef(0);
+
+  useEffect(() => {
+    timerMS.current = Math.round((state.endMS - state.startMS) / 1000);
+  }, []);
   const isOver = useRef(false);
 
   const reset = (s?: BoardOptions) => {
     s && setSize(s);
+    const rows = s?.height || size.height;
+    const cols = s?.width || size.width;
+    const newBoard = Array.from({ length: rows }, (_, y) =>
+      Array.from(
+        { length: cols },
+        (_, x): BlockState => ({
+          x,
+          y,
+          revealed: false,
+          adjacentMines: 0,
+        })
+      )
+    );
     setState({
       startMS: +Date.now(),
-      board: Array.from({ length: size.height }, (_, y) =>
-        Array.from(
-          { length: size.width },
-          (_, x): BlockState => ({
-            x,
-            y,
-            revealed: false,
-            adjacentMines: 0,
-          })
-        )
-      ),
+      board: newBoard,
       mineGenerated: false,
       status: "play",
     });
@@ -90,7 +100,6 @@ export default function MineSweeper() {
     const placeRandom = () => {
       const x = randomInt(0, size.width - 1);
       const y = randomInt(0, size.height - 1);
-      console.log(nowstate, x, y);
 
       const block = nowstate[y][x];
       if (
@@ -154,7 +163,6 @@ export default function MineSweeper() {
   useEffect(() => {
     checkGameState();
   }, []);
-  // console.log(play);
   function showAllMines() {
     state.board.flat().forEach((i) => {
       if (i.mine) i.revealed = true;
@@ -183,8 +191,8 @@ export default function MineSweeper() {
       onGameOver("lost");
     }
     expendZero(block);
+    setState({ board: onSetStateHandle(block) });
   }
-
   function autoExpand(block: BlockState) {
     if (state.status !== "play" || block.flagged) return;
 
@@ -210,6 +218,7 @@ export default function MineSweeper() {
         }
       });
     }
+    setState({ board: onSetStateHandle(block) });
   }
   function onRightClick(block: BlockState) {
     if (state.status !== "play") {
@@ -229,12 +238,16 @@ export default function MineSweeper() {
         expendZero(s);
       }
     });
+    setState({ board: onSetStateHandle(block) });
   }
   function onSetStateHandle(block: BlockState) {
     let board = state.board;
     board[block.y][block.x] = block;
     return board;
   }
+
+  console.log(state);
+
   return (
     <div
       style={{
@@ -254,13 +267,15 @@ export default function MineSweeper() {
         <Button btnType="primary" onClick={() => reset(difficulty.medium)}>
           Medium
         </Button>
-        <Button btnType="primary" onClick={() => reset(difficulty.medium)}>
+        <Button btnType="primary" onClick={() => reset(difficulty.hard)}>
           Hard
         </Button>
         <Button btnType="danger" onClick={() => reset()}>
           RESET
         </Button>
       </div>
+      <div style={{ color: "#fff" }}>{timerMS.current}</div>
+      <div style={{ color: "#fff" }}>{timerMS.current}</div>
       <div
         style={{
           background: "#222",
@@ -269,7 +284,6 @@ export default function MineSweeper() {
       >
         {state.board?.map((row, y) => (
           <div key={y} className="mine-rows">
-            {console.log(row)}
             {row.map((block, x) => (
               <MineBlock
                 key={x}

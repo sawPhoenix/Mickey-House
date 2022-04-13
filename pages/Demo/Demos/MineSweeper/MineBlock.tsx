@@ -10,13 +10,13 @@ interface MineBlockProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 interface MineBlockRef {}
 const numberColors = [
   "mine-revealed",
-  "mine-blue",
-  "mine-green",
-  "mine-yellow",
-  "mine-orange",
-  "mine-purple",
-  "mine-pink",
-  "mine-pink",
+  "mine-one",
+  "mine-two",
+  "mine-three",
+  "mine-four",
+  "mine-five",
+  "mine-six",
+  "mine-seven",
 ];
 const MineBlock: React.ForwardRefRenderFunction<
   MineBlockRef,
@@ -29,7 +29,6 @@ const MineBlock: React.ForwardRefRenderFunction<
     }
     return block.mine ? "mine-self" : numberColors[block.adjacentMines];
   };
-  console.log(block);
 
   React.useImperativeHandle(ref, () => ({}));
   const BlockRender = () => {
@@ -39,10 +38,9 @@ const MineBlock: React.ForwardRefRenderFunction<
       if (block.mine) {
         return <Image className="mine-boom" src={boom} />;
       } else {
-        <div>{block.adjacentMines}</div>;
+        return <div>{block.adjacentMines > 0 ? block.adjacentMines : ""}</div>;
       }
     }
-
     return <></>;
   };
 
