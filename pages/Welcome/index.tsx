@@ -38,6 +38,12 @@ const WolCome: React.FC = () => {
         >
           to ThreeD Demo
         </Button>
+
+        <div>
+          待解决问题： <span>断点续传</span>
+          <span>从输入url到显示发成了什么</span>
+          <span>npm线上打包</span>
+        </div>
       </div>
     </div>
   );

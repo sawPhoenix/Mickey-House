@@ -1,7 +1,14 @@
 import { useRouter } from "next/router";
 import Button from "components/PublicComponents/Button";
+import { getTop3Dom } from "./JavaScriptDemo/FurryCode";
+import React from "react";
 export default function Demo() {
   const history = useRouter();
+  React.useEffect(() => {
+    const top3Dom = getTop3Dom();
+    console.log(top3Dom);
+  });
+
   return (
     <div
       style={{
