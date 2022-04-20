@@ -4,9 +4,9 @@ const ButtonType: React.FC = () => {
     <div style={{ overflow: "auto" }}>
       {/* <!-- 霓虹效果 --> */}
       <div className="btn_demo_box black">
-        <button className="btn one">Hover me</button>
-        <button className="btn two">Hover me</button>
-        <button className="btn three">Hover me</button>
+        <button className="btn_demo one">Hover me</button>
+        <button className="btn_demo two">Hover me</button>
+        <button className="btn_demo three">Hover me</button>
       </div>
       {/* <!-- 边框效果 --> */}
       <div className="btn_demo_box">

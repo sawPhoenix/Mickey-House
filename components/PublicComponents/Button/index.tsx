@@ -1,13 +1,6 @@
-import React, {
-  FC,
-  ButtonHTMLAttributes,
-  AnchorHTMLAttributes,
-  useState,
-  useEffect,
-} from "react";
+import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
 import classNames from "classnames";
 export type ButtonSize = "lg" | "sm";
-export type ButtonType = "primary" | "default" | "danger" | "link";
 
 interface BaseButtonProps {
   className?: string;
@@ -17,7 +10,7 @@ interface BaseButtonProps {
   size?: ButtonSize;
   children: React.ReactNode;
   href?: string;
-  btnType?: ButtonType;
+  btnType?: "primary" | "default" | "danger" | "link";
 }
 
 type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>;

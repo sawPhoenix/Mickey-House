@@ -40,9 +40,12 @@ const WolCome: React.FC = () => {
         </Button>
 
         <div>
-          待解决问题： <span>断点续传</span>
-          <span>从输入url到显示发成了什么</span>
-          <span>npm线上打包</span>
+          待解决问题：
+          <ul>
+            <li>断点续传</li>
+            <li>从输入url到显示发成了什么</li>
+            <li>npm线上打包</li>
+          </ul>
         </div>
       </div>
     </div>

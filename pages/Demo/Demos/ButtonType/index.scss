@@ -13,7 +13,7 @@ $rotate-bg: url("~/assets/green-texture.png");
   background-color: #f8f005;
 }
 
-.btn {
+.btn_demo {
   border: 1px solid;
   background-color: transparent;
   text-transform: uppercase;
@@ -33,7 +33,7 @@ $rotate-bg: url("~/assets/green-texture.png");
 .three {
   color: #b9e769;
 }
-.btn:hover {
+.btn_demo:hover {
   color: white;
   border: 0;
 } 
