@@ -47,6 +47,14 @@ const WolCome: React.FC = () => {
             <li>npm线上打包</li>
           </ul>
         </div>
+        <div>
+          待办事项：
+          <ul>
+            <li>做一个有趣的menu组件</li>
+            <li>Markdown文件编译成js显示在页面中</li>
+            <li>跨路由动画组件</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
