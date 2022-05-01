@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
+import Image from "next/image";
 import Button from "components/PublicComponents/Button";
 import { getTop3Dom } from "./JavaScriptDemo/FurryCode";
 import React from "react";
+import one from "assets/background/1.jpg";
 export default function Demo() {
   const history = useRouter();
   React.useEffect(() => {
@@ -40,6 +42,14 @@ export default function Demo() {
         >
           扫雷
         </Button>
+      </div>
+      <div
+        onClick={() => {
+          history.push("Demo/Demos/DemoFilpList");
+        }}
+        style={{ borderRadius: "100px", overflow: "hidden", width: 100 }}
+      >
+        <Image layout="responsive" width={200} height={200} src={one} alt="" />
       </div>
     </div>
   );

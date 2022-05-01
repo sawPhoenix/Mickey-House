@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { useBoolean, useSetState } from "ahooks";
+import { useRef, useState } from "react";
+import { useInterval, useMount, useSetState } from "ahooks";
 import Button from "components/PublicComponents/Button";
 import MineBlock from "./MineBlock";
 import type { BlockState } from "./type";
-import { log } from "console";
-import moment from "moment";
 const directions = [
   [1, 1],
   [1, 0],
@@ -46,9 +44,25 @@ const difficulty = {
     mines: 99,
   },
 };
-const now = Date.now();
+
+const getBoard = (rows: number, cols: number) => {
+  return Array.from({ length: rows }, (_, y) =>
+    Array.from(
+      { length: cols },
+      (_, x): BlockState => ({
+        x,
+        y,
+        revealed: false,
+        adjacentMines: 0,
+      })
+    )
+  );
+};
+
 export default function MineSweeper() {
   const [size, setSize] = useSetState<BoardOptions>(difficulty.easy);
+  const mineRest = useRef(size.mines);
+  const [timerMS, setTimerMs] = useState(0);
   const [state, setState] = useSetState<GameState>({
     board: [[]],
     mineGenerated: false,
@@ -56,36 +70,32 @@ export default function MineSweeper() {
     startMS: 0,
     endMS: 0,
   });
+  const getBlocks = () => {
+    return state.board!.flat();
+  };
+  const setMineRest = () => {
+    mineRest.current = getBlocks().reduce(
+      (a, b) => a + (b.mine ? 1 : 0) - (b.flagged ? 1 : 0),
+      0
+    );
+  };
 
-  const timerMS = useRef(0);
-
-  useEffect(() => {
-    timerMS.current = Math.round((state.endMS - state.startMS) / 1000);
-  }, []);
-  const isOver = useRef(false);
+  useMount(() => {
+    reset();
+  });
 
   const reset = (s?: BoardOptions) => {
     s && setSize(s);
     const rows = s?.height || size.height;
     const cols = s?.width || size.width;
-    const newBoard = Array.from({ length: rows }, (_, y) =>
-      Array.from(
-        { length: cols },
-        (_, x): BlockState => ({
-          x,
-          y,
-          revealed: false,
-          adjacentMines: 0,
-        })
-      )
-    );
+
     setState({
-      startMS: +Date.now(),
-      board: newBoard,
+      startMS: Date.now(),
+      board: getBoard(rows, cols),
       mineGenerated: false,
       status: "play",
     });
-    isOver.current = false;
+    setTimerMs(0);
   };
 
   function randomRange(min: number, max: number) {
@@ -129,19 +139,19 @@ export default function MineSweeper() {
         });
       });
     });
+    setMineRest();
     setState({
       board: newboard,
     });
   }
   function checkGameState() {
-    if (!state.mineGenerated) return;
-
-    const blocks = state.board!.flat();
-
+    if (!state.mineGenerated || state.status !== "play") return;
     if (
-      blocks.every((block) => block.revealed || block.flagged || block.mine)
+      getBlocks().every(
+        (block) => block.revealed || block.flagged || block.mine
+      )
     ) {
-      if (blocks.some((block) => block.flagged && !block.mine)) {
+      if (getBlocks().some((block) => block.flagged && !block.mine)) {
         onGameOver("lost");
       } else {
         onGameOver("won");
@@ -160,24 +170,29 @@ export default function MineSweeper() {
       })
       .filter(Boolean) as unknown as BlockState[];
   }
-  useEffect(() => {
-    checkGameState();
-  }, []);
   function showAllMines() {
     state.board.flat().forEach((i) => {
       if (i.mine) i.revealed = true;
     });
   }
-  function onGameOver(status: GameStatus) {
-    state.status = status;
-    state.endMS = +Date.now();
+  const onGameOver = (status: GameStatus) => {
+    setState({
+      status,
+      endMS: +Date.now(),
+    });
     if (status === "lost") {
       showAllMines();
       setTimeout(() => {
         alert("lost");
       }, 10);
     }
-  }
+  };
+  useInterval(() => {
+    if (state.status === "play") {
+      const now = Date.now();
+      setTimerMs(Math.floor((now - state.startMS) / 1000));
+    }
+  }, 1000);
 
   function onBlockClick(block: BlockState) {
     if (state.status !== "play" || block.flagged) return;
@@ -191,7 +206,7 @@ export default function MineSweeper() {
       onGameOver("lost");
     }
     expendZero(block);
-    setState({ board: onSetStateHandle(block) });
+    onupdateState(block);
   }
   function autoExpand(block: BlockState) {
     if (state.status !== "play" || block.flagged) return;
@@ -218,7 +233,7 @@ export default function MineSweeper() {
         }
       });
     }
-    setState({ board: onSetStateHandle(block) });
+    onupdateState(block);
   }
   function onRightClick(block: BlockState) {
     if (state.status !== "play") {
@@ -227,8 +242,7 @@ export default function MineSweeper() {
     if (!block.revealed) {
       block.flagged = !block.flagged;
     }
-
-    setState({ board: onSetStateHandle(block) });
+    onupdateState(block);
   }
   function expendZero(block: BlockState) {
     if (block.adjacentMines) return;
@@ -238,6 +252,11 @@ export default function MineSweeper() {
         expendZero(s);
       }
     });
+    onupdateState(block);
+  }
+  function onupdateState(block: BlockState) {
+    setMineRest();
+    checkGameState();
     setState({ board: onSetStateHandle(block) });
   }
   function onSetStateHandle(block: BlockState) {
@@ -245,8 +264,6 @@ export default function MineSweeper() {
     board[block.y][block.x] = block;
     return board;
   }
-
-  console.log(state);
 
   return (
     <div
@@ -274,8 +291,9 @@ export default function MineSweeper() {
           RESET
         </Button>
       </div>
-      <div style={{ color: "#fff" }}>{timerMS.current}</div>
-      <div style={{ color: "#fff" }}>{timerMS.current}</div>
+      <div style={{ color: "#fff" }}>{timerMS}</div>
+      <div style={{ color: "#fff" }}>{mineRest.current}</div>
+      <div style={{ color: "#fff" }}>{state.status}</div>
       <div
         style={{
           background: "#222",
