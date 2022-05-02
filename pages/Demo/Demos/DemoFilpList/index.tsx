@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Button from "components/PublicComponents/Button";
 
-import List from "../../../../components/FilpList";
+import List from "../../../../components/FlipList";
 function shuffle([...arr]: any[]) {
   let m = arr.length;
   while (m) {
@@ -14,9 +14,10 @@ function shuffle([...arr]: any[]) {
 }
 
 export default () => {
-  const [items, setItems] = useState<string[]>([]);
+  const [items, setItems] = useState<any[]>([]);
   const handleAddClick = () => {
-    setItems((items) => ["1233123", ...items]);
+    const count = items.length + 1;
+    setItems([count, ...items]);
   };
   const handleRemoveClick = () => {
     setItems((items) => items.slice(1));
@@ -40,9 +41,15 @@ export default () => {
             margin: 20,
           }}
         >
-          <Button onClick={handleAddClick}>add Item</Button>
-          <Button onClick={handleRemoveClick}>remove Item</Button>
-          <Button onClick={handleShuffleClick}>shuffle Item</Button>
+          <Button btnType="primary" onClick={handleAddClick}>
+            add Item
+          </Button>
+          <Button btnType="primary" onClick={handleRemoveClick}>
+            remove Item
+          </Button>
+          <Button btnType="primary" onClick={handleShuffleClick}>
+            shuffle Item
+          </Button>
         </div>
         <div
           // onClick={() => {
