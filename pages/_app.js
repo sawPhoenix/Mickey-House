@@ -1,6 +1,7 @@
 import Head from "next/head";
 import "../styles/index.scss";
 import "moment/locale/zh-cn";
+
 import Layouts from "../components/Layouts";
 function MyApp({ Component, pageProps }) {
   return (

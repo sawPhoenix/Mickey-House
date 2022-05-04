@@ -1,8 +1,12 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React from "react";
 import useFlip from "../../hooks/useFileList";
 
+interface ItemType {
+  key: React.Key;
+  value: React.ReactNode;
+}
 interface ViewProps {
-  items: any[];
+  items: ItemType[];
 }
 
 export const invert = (delta: ClientRect, elem: HTMLElement) => {
@@ -25,8 +29,8 @@ export default function List({ items }: ViewProps) {
   return (
     <ul ref={listRef} style={{ listStyle: "none" }}>
       {items.map((item) => (
-        <li data-key={item} key={item}>
-          {item}
+        <li data-key={item.key} key={item.key}>
+          {item.value}
         </li>
       ))}
     </ul>
