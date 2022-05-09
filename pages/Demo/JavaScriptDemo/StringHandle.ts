@@ -12,9 +12,6 @@ export const getContinuousNumber1 = (str: string) => {
   let tmp = arr[0];
   arr.forEach((item, index, self) => {
     if (item + 1 !== self[index + 1]) {
-      console.log("tmp", tmp);
-      console.log("item", item);
-
       if (tmp !== item) {
         result.push(`${tmp}~${item}`);
       } else {

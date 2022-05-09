@@ -2,7 +2,8 @@ import React from "react";
 
 export function getTop3Dom() {
   /**
-   *  获取元素
+   *  获取元素 ------------------------------------
+   *  两种方法
    */
   // 1
 
@@ -26,7 +27,9 @@ export function getTop3Dom() {
   }
   scan(html);
 
-  // 获取元素 end
+  /**
+   *  获取元素  ------------------------------------
+   */
 
   const sorted = Object.entries(count).sort((a, b) => b[1] - a[1]);
   const top3 = sorted.slice(0, 3);
