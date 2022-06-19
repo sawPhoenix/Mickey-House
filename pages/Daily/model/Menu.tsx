@@ -3,10 +3,11 @@ import { DailyType } from "../type";
 import Button from "components/PublicComponents/Button";
 interface NormalProps {
   data: DailyType[];
+  index: number;
   onDataChange?: (val: string) => void;
 }
-const Normal: React.FC<NormalProps> = ({ data, onDataChange }) => {
-  const [nowYear, setNowYear] = useState<number>(data[0].year);
+const Normal: React.FC<NormalProps> = ({ data, index, onDataChange }) => {
+  const [nowYear, setNowYear] = useState<number>(data[index].year);
   const yearList = Array.from(new Set(data.map((v) => v.year)));
 
   return (

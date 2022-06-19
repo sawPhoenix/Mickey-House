@@ -8,6 +8,7 @@ import Questions from "./markdown/JavaScript/questions.mdx";
 import { DailyType } from "./type";
 
 const Daily: React.FC = () => {
+  Object.getOwnPropertyNames;
   return (
     <div style={{ padding: 24 }}>
       <div

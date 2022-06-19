@@ -17,6 +17,7 @@ const Daily: React.FC = () => {
   return (
     <div style={{ padding: 24 }}>
       <Menu
+        index={index}
         data={dataSoure}
         onDataChange={(code) => {
           console.log(dataSoure.findIndex((v) => v.code === code));
