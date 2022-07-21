@@ -142,12 +142,14 @@ const Sort = () => {
 
   /**
    * 快速排序
+   * 时间复杂度 On(logN)
+   * 空间复杂度 O1
    * @param T
    */
 
-  const Quick = (arr: any[]) => {
+  const Quick = (arr: number[]) => {
     // 切分
-    const partition = (a: any[], lo: number, hi: number): number => {
+    const partition = (a: number[], lo: number, hi: number): number => {
       let i = lo,
         j = hi + 1,
         v = a[lo];
@@ -170,7 +172,7 @@ const Sort = () => {
 
       return j;
     };
-    const qsort = (a: any[], lo: number, hi: number) => {
+    const qsort = (a: number[], lo: number, hi: number) => {
       if (hi <= lo) {
         return;
       }
@@ -182,8 +184,8 @@ const Sort = () => {
     return arr;
   };
 
-  const Quick3way = (arr: any[]) => {
-    const sort = (a: any[], lo: number, hi: number) => {
+  const Quick3way = (arr: number[]) => {
+    const sort = (a: number[], lo: number, hi: number) => {
       if (hi <= lo) return;
       let lt = lo,
         i = lo + 1,

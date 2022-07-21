@@ -10,6 +10,16 @@ export default function Demo() {
     const top3Dom = getTop3Dom();
     console.log(top3Dom);
   });
+  const STYLE = 1;
+  const CLASS = 1 << 1;
+  const CHILDREN = 1 << 2;
+  console.log(STYLE, CLASS, CHILDREN);
+  let vnodeType = STYLE | CLASS;
+  console.log(vnodeType);
+  console.log(vnodeType & STYLE);
+  console.log(vnodeType & CLASS);
+  console.log(vnodeType & CHILDREN);
+  vnodeType = vnodeType ^ CLASS;
 
   return (
     <div
