@@ -12,8 +12,8 @@ const Layout: React.FC = (props) => {
   }, []);
   const setBackGround = (bgImg?: number) => {
     const Bg_img =
-      bgImg || Number(window.sessionStorage.getItem(BgImg) || bgNumber);
-    window.sessionStorage.setItem(BgImg, Bg_img.toString());
+      bgImg || Number(window.localStorage.getItem(BgImg) || bgNumber);
+    window.localStorage.setItem(BgImg, Bg_img.toString());
     setBackground(Bg_img);
   };
   const className_bg = classnames("container", {

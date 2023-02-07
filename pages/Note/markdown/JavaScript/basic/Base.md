@@ -86,13 +86,15 @@ obj[Symbol['age']] = 18
   对象自身的所有属性
   不获取原型链上的属性
 
-表格：
-| 方式 | 基本属性 | 原型链 | 不可枚举 | Symbol |
-| forIn | y | y | N | N |
-| Object.keys() | Y | N | N | N |
-| Object.getOwnPropertyNames() | Y | N | Y | N |
-| Object.getOwnPropertySymbols() | Y | N | N | Y |
-| Reflect.ownKeys() | Y | N | Y | Y |
+表格:
+
+| 方式                           | 基本属性 | 原型链 | 不可枚举 | Symbol |
+| ------------------------------ | -------- | ------ | -------- | ------ |
+| forIn                          | y        | y      | N        | N      |
+| Object.keys()                  | Y        | N      | N        | N      |
+| Object.getOwnPropertyNames()   | Y        | N      | Y        | N      |
+| Object.getOwnPropertySymbols() | Y        | N      | N        | Y      |
+| Reflect.ownKeys()              | Y        | N      | Y        | Y      |
 
 ## 数字
 

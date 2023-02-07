@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { useRouter } from "next/router";
 import Button from "../../components/PublicComponents/Button";
+
+const initialState = { count: 0 };
+
 const WolCome: React.FC = () => {
   const history = useRouter();
   return (
