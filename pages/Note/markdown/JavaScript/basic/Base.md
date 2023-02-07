@@ -188,3 +188,51 @@ obj[Symbol['age']] = 18
 - > > : 右移一位
 - & : 两个同时是 1 的时候，结果是 1，否则是 0
 - | : 两个同时是 0 的时候，结果是 0，否则是 1
+
+# 有限状态机
+
+使用状态机找字符串：‘abcdef’
+
+```
+function match(string) {
+  let state = start;
+  for (const c of string) {
+    state = state(c);
+  }
+
+  return state === end;
+}
+
+function start(c) {
+  if (c === "a") return foundA;
+  else return start(c);
+}
+function end(c) {
+  return end;
+}
+function foundA(c) {
+  if (c === "b") return foundB;
+  else return start(c);
+}
+function foundB(c) {
+  if (c === "a") return foundA2;
+  else return start(c);
+}
+function foundA2(c) {
+  if (c === "b") return foundB2;
+  else return start(c);
+}
+function foundB2(c) {
+  if (c === "a") return foundA3;
+  else return foundB(c);
+}
+function foundA3(c) {
+  if (c === "b") return end;
+  else return start(c);
+}
+function foundB3(c) {
+  if (c === "x") return end;
+  else return foundB2(c);
+}
+
+```

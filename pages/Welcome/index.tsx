@@ -54,6 +54,7 @@ const WolCome: React.FC = () => {
           待办事项：
           <ul>
             <li>做一个有趣的menu组件</li>
+            <li>KMP算法了解</li>
             <li>Markdown文件编译成js显示在页面中</li>
             <li>跨路由动画组件</li>
           </ul>
