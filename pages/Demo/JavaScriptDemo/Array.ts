@@ -43,5 +43,4 @@ function getMaxSum2(arr: number[], n: number) {
 
   return max;
 }
-
 export default {};
