@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "components/PublicComponents/Button";
 import { getTop3Dom } from "./JavaScriptDemo/FurryCode";
+import Map from "./Demos/Map";
 import React from "react";
 import one from "assets/background/1.jpg";
 export default function Demo() {
@@ -51,6 +52,12 @@ export default function Demo() {
           onClick={() => history.push("/Demo/Demos/MineSweeper")}
         >
           扫雷
+        </Button>
+        <Button
+          btnType="primary"
+          onClick={() => history.push("/Demo/Demos/Map")}
+        >
+          地图
         </Button>
       </div>
       <div

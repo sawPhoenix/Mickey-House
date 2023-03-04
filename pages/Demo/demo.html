@@ -10,5 +10,41 @@
     <div id="a">123 <span style="background-color: blueviolet;">456000</span> 789</div>
 </body>
 <script>
+    function green() {
+        console.log('green');
+    }
+    function yellow() {
+        console.log('yellow');
+    }
+    function red() {
+        console.log('red');
+    }
+   
+   function sleep(t) {
+    return new Promise((res,rej) => {
+        setTimeout(res,t)
+    })
+   }
+//    function go() {
+//      green() 
+//      sleep(1000).then(() => {
+//         yellow()
+//         return sleep(200)
+//      }).then(() => {
+//         red()
+//         return sleep(200)
+//      }).then(go)
+//    }
+async function go() {
+    while (true) {
+        green();
+        await sleep(1000)
+        yellow();
+        await sleep(200)
+        red();
+        await sleep(500)
+        
+    }
+}
 </script>
 </html>

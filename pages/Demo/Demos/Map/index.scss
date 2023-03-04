@@ -1,0 +1,19 @@
+$prefix : 'demo-map';
+
+
+.#{$prefix} {
+    width: 701px; line-height: 7px;
+    // display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    &-cell {
+        display: inline-block;
+        line-height: 7px;
+        width: 6px;
+        height: 6px;
+        background-color: gray;
+        border-bottom: 1px solid #fff;
+        border-right: 1px solid #fff;
+        vertical-align: top;
+    }
+}
