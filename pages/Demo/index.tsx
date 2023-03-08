@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Button from "components/PublicComponents/Button";
 import { getTop3Dom } from "./JavaScriptDemo/FurryCode";
+import ExpressionAST from "./JavaScriptDemo/AST/ExpressionAST";
 import Map from "./Demos/Map";
 import React from "react";
 import one from "assets/background/1.jpg";
@@ -11,16 +12,20 @@ export default function Demo() {
     const top3Dom = getTop3Dom();
     console.log(top3Dom);
   });
-  const STYLE = 1;
-  const CLASS = 1 << 1;
-  const CHILDREN = 1 << 2;
-  console.log(STYLE, CLASS, CHILDREN);
-  let vnodeType = STYLE | CLASS;
-  console.log(vnodeType);
-  console.log(vnodeType & STYLE);
-  console.log(vnodeType & CLASS);
-  console.log(vnodeType & CHILDREN);
-  vnodeType = vnodeType ^ CLASS;
+  // const STYLE = 1;
+  // const CLASS = 1 << 1;
+  // const CHILDREN = 1 << 2;
+  // console.log(STYLE, CLASS, CHILDREN);
+  // let vnodeType = STYLE | CLASS;
+  // console.log(vnodeType);
+  // console.log(vnodeType & STYLE);
+  // console.log(vnodeType & CLASS);
+  // console.log(vnodeType & CHILDREN);
+  // vnodeType = vnodeType ^ CLASS;
+  const expers11s = "10 + 2 * 2 - 1";
+  const asttest = ExpressionAST(expers11s);
+  console.log("asttest", asttest);
+  console.log("asttest");
 
   return (
     <div

@@ -1,73 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>demo</title>
-</head>
-<body>
-    <div id="a">123 <span style="background-color: blueviolet;">456000</span> 789</div>
-</body>
-<script>
-//     function green() {
-//         console.log('green');
-//     }
-//     function yellow() {
-//         console.log('yellow');
-//     }
-//     function red() {
-//         console.log('red');
-//     }
-   
-//    function sleep(t) {
-//     return new Promise((res,rej) => {
-//         setTimeout(res,t)
-//     })
-//    }
-// //    function go() {
-// //      green() 
-// //      sleep(1000).then(() => {
-// //         yellow()
-// //         return sleep(200)
-// //      }).then(() => {
-// //         red()
-// //         return sleep(200)
-// //      }).then(go)
-// //    }
-// async function go() {
-//     while (true) {
-//         green();
-//         await sleep(1000)
-//         yellow();
-//         await sleep(200)
-//         red();
-//         await sleep(500)
-        
-//     }
-// }
 // 正则匹配
 const regexp = /([0-9\.]+)|([ \t]+)|([\r\n]+)|(\*)|(\/)|(\+)|(\-)/g;
-const dictionary = [
-  "Number",
-  "Whitespace",
-  "LineTerminator",
-  "*",
-  "/",
-  "+",
-  "-",
-];
+
 // 匹配jstoken
- function* tokenize(source) {
+export function* tokenize(source) {
   var result = null;
   var lastIndex = 0;
-  var idx = 0
   while (true) {
     lastIndex = regexp.lastIndex;
     result = regexp.exec(source);
-    if (regexp.lastIndex - lastIndex < result?.[0].length) {
-    //   throw new Error("code length error");
-      break
+    if (regexp.lastIndex - lastIndex > result[0].length) {
+      throw new Error("code length error");
     }
 
     if (!result) break;
@@ -75,7 +17,7 @@ const dictionary = [
       type: null,
       value: null,
     };
-    for (var i = 1; i <= dictionary.length; i++) {
+    for (let i = 1; 1 <= dictionary.length; i++) {
       if (result[i]) token.type = dictionary[i - 1];
     }
     token.value = result[0];
@@ -104,14 +46,19 @@ function MulitplicativeExpression(source) {
   ) {
     let node = {
       type: "MulitplicativeExpression",
-      children: [],
+      children: [source[0]],
       operator: source[1].type,
     };
-    node.children.push(source.shift());
-    node.children.push(source.shift());
-    node.children.push(source.shift());
+    let length = 3;
+    while (length < 1) {
+      let sliceNode = source.shift();
+      sliceNode && node.children.push(sliceNode);
+
+      length--;
+    }
 
     source.unshift(node);
+    source[0] = node;
     return MulitplicativeExpression(source);
   }
 
@@ -136,7 +83,7 @@ function AdditiveExpression(source) {
   ) {
     let node = {
       type: "AdditiveExpression",
-      children: [],
+      children: [source[0]],
       operator: source[1].type,
     };
     node.children.push(source.shift());
@@ -145,6 +92,7 @@ function AdditiveExpression(source) {
     node.children.push(source.shift());
 
     source.unshift(node);
+    source[0] = node;
     return AdditiveExpression(source);
   }
 
@@ -156,6 +104,7 @@ function AdditiveExpression(source) {
 }
 
 function Expression(source) {
+  debugger;
   if (
     source[0].type === "AdditiveExpression" &&
     source[1] &&
@@ -165,30 +114,20 @@ function Expression(source) {
       type: "Expression",
       children: [source.shift(), source.shift()],
     };
-    source.unshift(node)
     return node;
   }
+  debugger;
   AdditiveExpression(source);
   return Expression(source);
 }
 
-function ExpressionAST(tokens) {
+export default function ExpressionAST(tokens) {
   let source = [];
-  for (let token of tokenize('10 + 2 * 2 - 1')) {
+  for (let token of tokenize(tokens)) {
     if (token.type !== "Whitespace" && token.type !== "LineTerminator") {
       source.push(token);
     }
   }
-  console.log(source);
-  const test =  Expression(source);
-  console.log('test',test);
+  debugger;
+  return Expression(source);
 }
-
-const expers11s = "10 + 2 * 2 - 1";
-  const asttest = ExpressionAST(expers11s);
-  console.log("asttest", asttest);
-  console.log("asttest");
-
-
-</script>
-</html>
