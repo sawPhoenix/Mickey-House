@@ -43,23 +43,23 @@ export default function Demo() {
   // console.log(trie);
   // const res = KMP("abaabbabac", "bac");
   // console.log(res);
-  let object = { a: 1, b: 2 };
-  let po = reactive(object);
-  function reactive(object: Object) {
-    return new Proxy(object, {
-      set(obj, prop, val) {
-        obj[prop] = val;
-        console.log("set", obj, prop, val);
-        return obj[prop];
-      },
-      get(obj, prop, val) {
-        console.log("get", obj, prop, val);
-        return obj[prop];
-      },
-    });
-  }
-  po.a = 33;
-  console.log(po, object);
+  // let object = { a: 1, b: 2 };
+  // let po = reactive(object);
+  // function reactive(object: Object) {
+  //   return new Proxy(object, {
+  //     set(obj, prop, val) {
+  //       obj[prop] = val;
+  //       console.log("set", obj, prop, val);
+  //       return obj[prop];
+  //     },
+  //     get(obj, prop, val) {
+  //       console.log("get", obj, prop, val);
+  //       return obj[prop];
+  //     },
+  //   });
+  // }
+  // po.a = 33;
+  // console.log(po, object);
 
   return (
     <div

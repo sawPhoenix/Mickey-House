@@ -6,7 +6,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
-  ReactDOM: true,
 };
 
 const withMDX = require("@next/mdx")({
