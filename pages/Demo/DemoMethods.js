@@ -17,7 +17,7 @@ export const myObjectIs = (a, b) => {
  * @returns
  */
 export const deepClone = (origin, hashMap = new WeakMap()) => {
-  if (origin == undefined || typeof origin !== 'object') {
+  if (origin == undefined || typeof origin !== "object") {
     return origin;
   }
   if (origin instanceof Date) {

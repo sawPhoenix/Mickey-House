@@ -61,6 +61,21 @@ export default function Demo() {
   // po.a = 33;
   // console.log(po, object);
 
+  const myReduce = (
+    cb: (acc: any, cur: any, i: number, arr: any[]) => any,
+    initialValue: any
+  ) => {
+    let arr = this;
+    let len = arr.length;
+    let _item;
+    let value = initialValue || arr[0];
+    let startIndex = initialValue ? 0 : 1;
+    for (let i = startIndex; i < len; i++) {
+      _item = arr[i];
+      value = cb(value, _item, i, arr);
+    }
+    return value;
+  };
   return (
     <div
       style={{
