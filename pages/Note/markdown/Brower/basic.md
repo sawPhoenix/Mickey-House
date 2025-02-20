@@ -38,6 +38,58 @@ range.isnertNode(document.createTextNode("aaa"))
 
 ```
 
+### 从输入 URL 到页面显示的过程
+
+1. URL 解析
+
+- 浏览器解析 URL 的各个部分(协议、域名、路径等)
+- 检查 URL 是否合法
+
+2. DNS 解析
+
+- 检查浏览器 DNS 缓存
+- 检查操作系统 DNS 缓存
+- 检查路由器 DNS 缓存
+- 向本地 DNS 服务器发起递归查询
+- 获得目标服务器 IP 地址
+
+3. TCP 连接
+
+- 进行三次握手建立 TCP 连接
+- 如果是 HTTPS 还要进行 TLS 握手
+
+4. 发送 HTTP 请求
+
+- 构建 HTTP 请求报文
+- 添加请求头和请求体
+- 发送请求到服务器
+
+5. 服务器处理请求并返回响应
+
+- 服务器接收请求
+- 处理请求
+- 返回响应报文
+
+6. 浏览器解析渲染页面
+
+- 解析 HTML 构建 DOM 树
+- 解析 CSS 构建 CSSOM 树
+- 将 DOM 和 CSSOM 合并成渲染树
+- 布局计算(Layout/Reflow)
+- 绘制(Paint)
+- 合成(Composite)
+
+7. JavaScript 执行
+
+- 解析执行 JavaScript 代码
+- 可能会修改 DOM 和 CSSOM
+- 触发重新渲染
+
+8. 页面显示完成
+
+- 显示页面内容
+- 继续加载其他资源(图片等)
+
 ## CSSOM
 
     docment.styleSheets

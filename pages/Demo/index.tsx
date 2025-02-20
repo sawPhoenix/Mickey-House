@@ -8,6 +8,8 @@ import KMP from "./JavaScriptDemo/String/KMP";
 import Map from "./Demos/Map";
 import React from "react";
 import one from "assets/background/1.jpg";
+import { compile } from "sass";
+import compiler from "./tiny-compiler";
 export default function Demo() {
   const history = useRouter();
   // React.useEffect(() => {
@@ -61,21 +63,36 @@ export default function Demo() {
   // po.a = 33;
   // console.log(po, object);
 
-  const myReduce = (
-    cb: (acc: any, cur: any, i: number, arr: any[]) => any,
-    initialValue: any
-  ) => {
+  compiler("(add 2 (subtract 4 2))");
+
+  // const myReduce = <T extends unknown, U extends unknown>(
+  //   cb: (acc: T, cur: T, i: number, arr: T[]) => U,
+  //   initialValue: U
+  // ) => {
+  //   let arr = this;
+  //   let len = arr.length;
+  //   let _item;
+  //   let value = initialValue || arr[0];
+  //   let startIndex = initialValue ? 0 : 1;
+  //   for (let i = startIndex; i < len; i++) {
+  //     _item = arr[i];
+  //     value = cb(value, _item, i, arr);
+  //   }
+  //   return value;
+  // };－
+
+  function myMap(cb: (item: any, index: number, arr: any[]) => any) {
     let arr = this;
     let len = arr.length;
     let _item;
-    let value = initialValue || arr[0];
-    let startIndex = initialValue ? 0 : 1;
-    for (let i = startIndex; i < len; i++) {
+    let result = [];
+    for (let i = 0; i < len; i++) {
       _item = arr[i];
-      value = cb(value, _item, i, arr);
+      result.push(cb(_item, i, arr));
     }
-    return value;
-  };
+    return result;
+  }
+
   return (
     <div
       style={{
