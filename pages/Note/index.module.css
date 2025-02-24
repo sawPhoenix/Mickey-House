@@ -1,0 +1,108 @@
+.markdown-container {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  .markdown-container h1 {
+    color: #333;
+  }
+  
+  .markdown-container code {
+    background-color: #f4f4f4;
+    padding: 0.2em;
+  }
+
+  /* src/App.css */
+.main-page {
+  display: flex;
+  height: 100vh;
+}
+/* index.module.css */
+
+/* menu */
+/* Container of the entire menu */
+.menu-bar {
+  position: fixed;
+  left: -200px; /* Initially hidden off-screen */
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  background-color: #333;
+  transition: left 0.3s ease; /* Smooth slide-in and slide-out effect */
+  z-index: 1000;
+  color: white;
+  padding-top: 20px;
+}
+
+/* Open the menu when it's active */
+.menu-bar.open {
+  left: 0; /* Slide menu in */
+}
+.menu-open-toggle  {
+  position: fixed;
+  width: 200px;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+}
+
+/* The container of each menu item */
+.menu-item {
+  list-style-type: none;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+  transition: background-color 0.3s ease;
+}
+
+/* When a menu item is selected */
+.menu-item.selected {
+  background-color: #007bff;
+  font-weight: bold;
+}
+
+/* Hover effect for each menu item */
+.menu-item:hover {
+  background-color: #555;
+}
+
+/* Container for submenu items */
+.sub-menu {
+  list-style-type: none;
+  padding-left: 20px; /* Indentation for submenus */
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden; /* Hide overflow when not visible */
+}
+
+/* Show the submenu when expanded */
+.sub-menu.expanded {
+  max-height: 1000px; /* Allow submenu to expand */
+  opacity: 1;
+}
+
+/* Expand icon style */
+.expand-icon {
+  margin-right: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate expand icon when submenu is expanded */
+.sub-menu.expanded + .menu-item .expand-icon {
+  transform: rotate(90deg);
+}
+
+/* content */
+
+.content-display {
+  flex: 1;
+  padding: 20px;
+}
+
+.content-display h2 {
+  margin-bottom: 20px;
+}

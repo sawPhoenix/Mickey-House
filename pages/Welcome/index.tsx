@@ -26,7 +26,7 @@ const WolCome: React.FC = () => {
           to Daily
         </Button>
         <Button
-          data-cy="to_Daily"
+          data-cy="to_Demo"
           onClick={() => {
             console.log(history.push("/Demo"));
           }}
@@ -34,9 +34,17 @@ const WolCome: React.FC = () => {
           to Demo
         </Button>
         <Button
-          data-cy="to_Daily"
+          data-cy="to_ThreeD"
           onClick={() => {
             console.log(history.push("/ThreeD"));
+          }}
+        >
+          to ThreeD Demo
+        </Button>
+        <Button
+          data-cy="to_Note"
+          onClick={() => {
+            console.log(history.push("/Note"));
           }}
         >
           to ThreeD Demo

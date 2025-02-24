@@ -1,67 +1,54 @@
 import React, { useState, useEffect } from "react";
+import { MenuModel, MenuItem } from "./models/MenuModel";
+import MenuBar from "./components/MenuBar";
+import ContentDisplay from "./components/ContentDisplay";
 
-import Button from "../../components/PublicComponents/Button";
-import ReactMD from "./markdown/JavaScript/React.md";
-// import MarkDownRender from "../../components/MarkDownRender";
-import Questions from "./markdown/JavaScript/questions.mdx";
-import { DailyType } from "./type";
-const components = {
-  h1: (props: any) => (
-    <h1 {...props} style={{ background: "#f66", color: "#ccc" }} />
-  ),
-  h2: (props: any) => <h1 {...props} style={{ background: "#f66" }} />,
-  //   Code: ({ className, ...props }: SyntaxHighlighterType) => {
-  //     const match = /language-(\w+)/.exec(className || "");
-  //     return match ? (
-  //       <SyntaxHighlighter
-  //         // style={dark}
-  //         {...props}
-  //         language={match[1]}
-  //         PreTag="div"
-  //         showLineNumbers
-  //         startingLineNumber={1}
-  //         lineNumberStyle={{ color: "#f66", fontSize: 20 }}
-  //       />
-  //     ) : (
-  //       <code className={className} {...props} />
-  //     );
-  //   },
-};
-const Daily: React.FC = () => {
-  console.log("ReactMD", ReactMD({}));
-  // const data = marked.parse()
+// 数据
+// import basic from "./markdown/Brower/basic.md";
+// import base from "./markdown/computerBase/base.md";
+// import prettier from "./markdown/config/prettier.md";
+// import readme from "./markdown/Docker/readme.md";
+// import httpBasic from "./markdown/Http/httpBasic.md";
+// import ES6 from "./markdown/JavaScript/basic/ES6.md";
+// import jsBase from "./markdown/JavaScript/basic/jsBase.md";
+// import jsScope from "./markdown/JavaScript/basic/jsScope.md";
+// import jsThis from "./markdown/JavaScript/basic/jsThis.md";
+// import jsComponent from "./markdown/JavaScript/jsComponent.md";
+// import questions from "./markdown/JavaScript/questions.md";
+// import JavaScriptReact from "./markdown/JavaScript/React.md";
+// import Nodereadme from "./markdown/Node.js/readme.md";
+// import webpack from "./markdown/webpack/webpack.md";
+
+// 样式
+import styles from "./index.module.css";
+// ViewModel
+const MainPage: React.FC = () => {
+  const [selectedContent, setSelectedContent] = useState<string>("");
+  const menuModel = new MenuModel(); // Model实例
+
+  useEffect(() => {
+    const initialItem = menuModel.getSelectedItem();
+    if (initialItem) {
+      setSelectedContent(initialItem.key);
+    }
+  }, []);
+
+  const handleMenuItemSelect = (key: string) => {
+    menuModel.setSelectedItem(key);
+    const selectedItem = menuModel.getSelectedItem();
+    if (selectedItem) {
+      setSelectedContent(selectedItem.key);
+    }
+  };
+
+  const menuItems: MenuItem[] = menuModel.getItems();
+
   return (
-    <div style={{ padding: 24, background: "rgba(255,255,255,0.5)" }}>
-      <div
-
-      // style={{
-      //   backgroundColor: "#fff",
-      //   // opacity: 0.8,
-      //   padding: 24,
-      //   margin: "20px 0",
-      // }}
-      >
-        {/* {marked.parse(ReactMD)} */}
-        {/* {ReactMD({})} */}
-        {}
-        {/* <MarkDownRender>{ReactMD({ components })}</MarkDownRender> */}
-      </div>
-      {() => {
-        const quickSort = (arr: number[]): number[] => {
-          if (arr.length <= 1) return arr;
-          const pivot = arr[0];
-          const left: number[] = [];
-          const right: number[] = [];
-          for (let i = 1; i < arr.length; i++) {
-            if (arr[i] < pivot) {
-              left.push(arr[i]);
-            } else {
-              right.push(arr[i]);
-            }
-          }
-        };
-      }}
+    <div className={styles["main-page"]}>
+      <MenuBar items={menuItems} onMenuItemSelect={handleMenuItemSelect} />
+      <ContentDisplay content={selectedContent} />
     </div>
   );
 };
-export default Daily;
+
+export default MainPage;
