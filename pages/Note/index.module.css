@@ -2,6 +2,7 @@
     font-family: Arial, sans-serif;
     line-height: 1.6;
     padding: 20px;
+    width: 100%;
     background-color: rgba(255, 255, 255, 0.5);
     
   }
@@ -19,6 +20,8 @@
 .main-page {
   display: flex;
   height: 100vh;
+  width: 100vw;
+
 }
 
 /* index.module.css */

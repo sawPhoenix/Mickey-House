@@ -53,6 +53,8 @@ const MenuBar: React.FC<MenuBarProps> = ({ items, onMenuItemSelect }) => {
               className={styles["expand-icon"]}
               onClick={(e: Event) => {
                 e.stopPropagation(); // 防止点击展开图标时触发选择事件
+                console.log(item.key);
+
                 handleToggleExpand(item.key);
               }}
             >

@@ -19,6 +19,7 @@ const MainPage: React.FC = () => {
   }, []);
 
   const handleMenuItemSelect = (key: string) => {
+    console.log(key, "key");
     menuModel.setSelectedItem(key);
     const selectedItem = menuModel.getSelectedItem();
     if (selectedItem) {

@@ -18,12 +18,21 @@ export class MenuModel {
 
   // 获取选中的菜单项
   public getSelectedItem(): MenuItem | null {
-    if (this.selectedItemKey !== null) {
-      return (
-        this.items.find((item) => item.key === this.selectedItemKey) || null
-      );
-    }
-    return null;
+    if (!this.selectedItemKey) return null;
+
+    // 递归查找函数
+    const findInTree = (items: MenuItem[]): MenuItem | null => {
+      for (const item of items) {
+        if (item.key === this.selectedItemKey) return item;
+        if (item.children) {
+          const found = findInTree(item.children);
+          if (found) return found;
+        }
+      }
+      return null;
+    };
+
+    return findInTree(this.items) || null;
   }
 
   // 设置选中的菜单项

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Data2021, Data2020, Data2022 } from "./note/data";
+import { Data2021, Data2020, Data2022, Data2025 } from "./note/data";
 import Button from "../../components/PublicComponents/Button";
 import Normal from "./model/Normal";
 import Menu from "./model/Menu";
@@ -9,6 +9,7 @@ const dataSoure: DailyType[] = [
   ...Data2020.map((v) => ({ ...v, year: 2020 })),
   ...Data2021.map((v) => ({ ...v, year: 2021 })),
   ...Data2022.map((v) => ({ ...v, year: 2022 })),
+  ...Data2025.map((v) => ({ ...v, year: 2025 })),
 ];
 const Daily: React.FC = () => {
   const [index, setIndex] = useState(dataSoure.length - 1);
