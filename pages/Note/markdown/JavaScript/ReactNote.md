@@ -113,6 +113,7 @@ fiberroot：本质是一个 fiber 节点对应的对象类型
 fiberRoot 对象（FiberRootNode 实例）经过 current 转换成 rootFiber 对象（FiberNode 实例）
 
 - render 阶段：
+
   1. workInProgress 节点的创建：current 节点（即 rootFiber）的副本
   2. beginWork 开启 Filber 节点的创建过程：
      - beginWork 的入参是一对用 alternate 链接起来的 workInprogress 和 current 节点。
@@ -122,8 +123,7 @@ fiberRoot 对象（FiberRootNode 实例）经过 current 转换成 rootFiber 对
   5. current 不为 null，逻辑因此被分发进 reconcileChildFibers，reconcileChildFibers 是 ChildReconciler（true）的返回值，意味着副作用将被追踪
   6. reconcileChildFibers 将子节点的创建逻辑分发给 reconcileSingleElement，得到 AppFiberNode
 
-
-    形成一个workInProgress树，处理这个数的阶段被称为completeWork阶段
+  形成一个 workInProgress 树，处理这个数的阶段被称为 completeWork 阶段
 
 - completeWork 阶段：
 

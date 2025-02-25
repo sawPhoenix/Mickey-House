@@ -2,15 +2,15 @@
 
 import React from "react";
 import styles from "../index.module.css";
+import MarkdownRenderer from "../MarkdownRenderer";
 interface ContentDisplayProps {
-  content: string;
+  selectedKey: string;
 }
 
-const ContentDisplay: React.FC<ContentDisplayProps> = ({ content }) => {
+const ContentDisplay: React.FC<ContentDisplayProps> = ({ selectedKey }) => {
   return (
     <div className={styles[`content-display`]}>
-      <h2>展示内容:</h2>
-      <p>{content}</p>
+      <MarkdownRenderer fileKey={selectedKey} />
     </div>
   );
 };

@@ -1,37 +1,58 @@
 import React, { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import MarkdownRender from "components/MarkDownRender";
+
+// 数据
+
+import basic from "./markdown/Brower/basic.md";
+import computerBase from "./markdown/computerBase.md";
+import prettier from "./markdown/config/prettier.md";
+import Docker from "./markdown/Docker.md";
+import httpBasic from "./markdown/Http/httpBasic.md";
+import ES6 from "./markdown/JavaScript/basic/ES6.md";
+import jsBase from "./markdown/JavaScript/basic/jsBase.md";
+import jsScope from "./markdown/JavaScript/basic/jsScope.md";
+import jsThis from "./markdown/JavaScript/basic/jsThis.md";
+import questions from "./markdown/JavaScript/questions.md";
+import ReactNote from "./markdown/JavaScript/ReactNote.md";
+import readme from "./markdown/Node.js/readme.md";
+import webpack from "./markdown/webpack/webpack.md";
+
+import styles from "./index.module.css";
+// ... existing imports ...
+
+const MarkdownPathMap = new Map<string, any>([
+  ["basic", basic],
+  ["computerBase", computerBase],
+  ["prettier", prettier],
+  ["Docker", Docker],
+  ["httpBasic", httpBasic],
+  ["ES6", ES6],
+  ["jsBase", jsBase],
+  ["jsScope", jsScope],
+  ["jsThis", jsThis],
+  ["questions", questions],
+  ["ReactNote", ReactNote],
+  ["readme", readme],
+  ["webpack", webpack],
+]);
 
 interface MarkdownRendererProps {
-  filePath: string; // 传入的文件路径
+  fileKey: string; // 传入的文件路径
 }
-import styles from "./index.module.css";
-const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ filePath }) => {
+const MarkdownRendererWithNote: React.FC<MarkdownRendererProps> = ({
+  fileKey,
+}) => {
   const [markdownContent, setMarkdownContent] = useState<string>("");
 
   useEffect(() => {
-    const fetchMarkdown = async () => {
-      try {
-        const response = await fetch(filePath);
-        if (response.ok) {
-          const text = await response.text();
-          setMarkdownContent(text);
-        } else {
-          console.error("Failed to load markdown file");
-        }
-      } catch (error) {
-        console.error("Error fetching markdown file:", error);
-      }
-    };
-
-    fetchMarkdown();
-  }, [filePath]);
+    setMarkdownContent(fileKey);
+  }, [fileKey]);
 
   return (
     <div className={styles["markdown-container"]}>
-      <ReactMarkdown children={markdownContent} remarkPlugins={[remarkGfm]} />
+      <MarkdownRender fileKey={fileKey} MarkdownPathMap={MarkdownPathMap} />
     </div>
   );
 };
 
-export default MarkdownRenderer;
+export default MarkdownRendererWithNote;

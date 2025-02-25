@@ -1,7 +1,6 @@
 // This file is auto-generated. Do not edit manually.
 
 // 导入文件数据
-
 export interface FileData {
   name: string;
   key: string;
@@ -27,16 +26,9 @@ export const directoryTree: FileData = {
       ],
     },
     {
-      name: "computerBase",
+      name: "computerBase.md",
       key: "computerBase",
-      path: "computerBase/computerBase",
-      children: [
-        {
-          name: "base.md",
-          key: "base",
-          path: "computerBase/base.md",
-        },
-      ],
+      path: "computerBase.md",
     },
     {
       name: "config",
@@ -51,16 +43,9 @@ export const directoryTree: FileData = {
       ],
     },
     {
-      name: "Docker",
+      name: "Docker.md",
       key: "Docker",
-      path: "Docker/Docker",
-      children: [
-        {
-          name: "readme.md",
-          key: "readme",
-          path: "Docker/readme.md",
-        },
-      ],
+      path: "Docker.md",
     },
     {
       name: "Http",
@@ -107,19 +92,14 @@ export const directoryTree: FileData = {
           ],
         },
         {
-          name: "jsComponent.md",
-          key: "jsComponent",
-          path: "JavaScript/jsComponent.md",
-        },
-        {
           name: "questions.md",
           key: "questions",
           path: "JavaScript/questions.md",
         },
         {
-          name: "React.md",
-          key: "React",
-          path: "JavaScript/React.md",
+          name: "ReactNote.md",
+          key: "ReactNote",
+          path: "JavaScript/ReactNote.md",
         },
       ],
     },
